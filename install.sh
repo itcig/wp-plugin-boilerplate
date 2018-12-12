@@ -28,7 +28,7 @@ LC_CTYPE=C
 # Replace pascal case instances in files
 find ./plugin-name -type f ! -path '*/\.*' -exec sed -i '' -e 's/Plugin_Name/'${PLUGIN_PASCAL}'/g' {} +
 find ./plugin-name -type f ! -path '*/\.*' -exec sed -i '' -e 's/PLUGIN_NAME_/'${PLUGIN_PASCAL_UPPER}_'/g' {} +
-find ./plugin-name -type f ! -path '*/\.*' -exec sed -i '' -e 's/_plugin_name/'${PLUGIN_PASCAL_LOWER}'/g' {} +
+find ./plugin-name -type f ! -path '*/\.*' -exec sed -i '' -e 's/_plugin_name/'_${PLUGIN_PASCAL_LOWER}'/g' {} +
 
 # Replace snake case instances in files
 find ./plugin-name -type f ! -path '*/\.*' -exec sed -i '' -e 's/plugin-name/'${PLUGIN_KEBAB}'/g' {} +
