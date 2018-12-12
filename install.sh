@@ -34,6 +34,10 @@ done
 # Remove original files that remain
 rm -r plugin-name
 
+# Fix non-ASCII characters and treat them as literals for sed commands below
+LANG=C
+LC_CTYPE=C
+
 # Replace pascal case instances
 find . -type f ! -name '*.sh' ! -name 'README.md' -exec sed -i '' -e 's/Plugin_Name/'${PLUGIN_PASCAL}'/g' {} +
 find . -type f ! -name '*.sh' ! -name 'README.md' -exec sed -i '' -e 's/PLUGIN_NAME/'${PLUGIN_PASCAL_UPPER}'/g' {} +
