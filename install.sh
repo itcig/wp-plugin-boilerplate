@@ -15,10 +15,6 @@ PLUGIN_PASCAL="$(echo ${PLUGIN_NAME} | sed -e 's/ /_/')"
 # Convert name to snake case for files
 PLUGIN_KEBAB="$(echo ${PLUGIN_NAME} | sed -e 's/ /\-/' | awk '{print tolower($0)}')"
 
-echo $PLUGIN_NAME
-echo $PLUGIN_KEBAB
-echo $PLUGIN_PASCAL
-exit;
 ### Validate inputs
 if [ -z ${PLUGIN_NAME+x} ] ; then
   echo "Plugin Name must be set"
@@ -29,15 +25,12 @@ fi
 find . -type f -name '*plugin-name*' | while read FILE ; do
     newfile="$(echo ${FILE} | sed -e 's/plugin-name/'${PLUGIN_KEBAB}'/g')" ;
     echo $FILE " --> " $newfile
+    mkdir -p "${newfile}"
     mv "${FILE}" "${newfile}" ;
 done 
 
-# Then recursively rename directories
-find . -type d -name '*plugin-name*' | while read FILE ; do
-    newfile="$(echo ${FILE} | sed -e 's/plugin-name/'${PLUGIN_KEBAB}'/g')" ;
-    echo $FILE " --> " $newfile
-    mv "${FILE}" "${newfile}" ;
-done 
+# Remove original files that remain
+rm -r plugin-name
 
 # Replace snake case instances
 find . -type f ! -name '*.sh' -exec sed -i '' -e 's/Plugin_Name/'${PLUGIN_PASCAL}'/g' {} +
