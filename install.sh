@@ -35,8 +35,8 @@ done
 rm -r plugin-name
 
 # Replace pascal case instances
-find . -type f ! -name '*.sh' -name 'README.md' -exec sed -i '' -e 's/Plugin_Name/'${PLUGIN_PASCAL}'/g' {} +
-find . -type f ! -name '*.sh' -name 'README.md' -exec sed -i '' -e 's/PLUGIN_NAME/'${PLUGIN_PASCAL_UPPER}'/g' {} +
+find . -type f ! -name '*.sh' ! -name 'README.md' -exec sed -i '' -e 's/Plugin_Name/'${PLUGIN_PASCAL}'/g' {} +
+find . -type f ! -name '*.sh' ! -name 'README.md' -exec sed -i '' -e 's/PLUGIN_NAME/'${PLUGIN_PASCAL_UPPER}'/g' {} +
 
 # Replace snake case instances
-find . -type f ! -name '*.sh' -name 'README.md' -exec sed -i '' -e 's/plugin-name/'${PLUGIN_KEBAB}'/g' {} +
+find . -type f ! -name '*.sh' ! -name 'README.md' -exec sed -i '' -e 's/plugin-name/'${PLUGIN_KEBAB}'/g' {} +
