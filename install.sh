@@ -1,9 +1,6 @@
 
 #!/bin/bash
 ########### Update plugin name and set files #########
-
- tc() { set ${*,,} ; echo ${*^} ; }
-
 echo "What is this plugin called (e.g. My Plugin), followed by [ENTER]:"
 
 read PLUGIN_NAME
