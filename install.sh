@@ -20,6 +20,9 @@ if [ -z ${PLUGIN_NAME+x} ] ; then
   exit 1
 fi
 
+# Copy all plugin files to new directory
+cp -r plugin-name "${PLUGIN_KEBAB}"
+
 # Fix non-ASCII characters and treat them as literals for sed commands below
 LANG=C
 LC_CTYPE=C
