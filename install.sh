@@ -25,7 +25,7 @@ fi
 find . -type f -name '*plugin-name*' | while read FILE ; do
     newfile="$(echo ${FILE} | sed -e 's/plugin-name/'${PLUGIN_KEBAB}'/g')" ;
     echo $FILE " --> " $newfile
-    mkdir -p "${newfile}"
+    mkdir -p `dirname ${newfile}`
     mv "${FILE}" "${newfile}" ;
 done 
 
