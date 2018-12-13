@@ -21,26 +21,29 @@ if [ -z ${PLUGIN_NAME+x} ] ; then
   exit 1
 fi
 
+cp -r plugin-name ${PLUGIN_KEBAB}
+
 # Fix non-ASCII characters and treat them as literals for sed commands below
 LANG=C
 LC_CTYPE=C
 
 # Replace pascal case instances in files
-find ./plugin-name -type f ! -path '*/\.*' -exec sed -i '' -e 's/Plugin_Name/'${PLUGIN_PASCAL}'/g' {} +
-find ./plugin-name -type f ! -path '*/\.*' -exec sed -i '' -e 's/PLUGIN_NAME_/'${PLUGIN_PASCAL_UPPER}_'/g' {} +
-find ./plugin-name -type f ! -path '*/\.*' -exec sed -i '' -e 's/_plugin_name/'_${PLUGIN_PASCAL_LOWER}'/g' {} +
+find ./${PLUGIN_KEBAB} -type f ! -path '*/\.*' -exec sed -i '' -e 's/Plugin_Name/'${PLUGIN_PASCAL}'/g' {} +
+find ./${PLUGIN_KEBAB} -type f ! -path '*/\.*' -exec sed -i '' -e 's/PLUGIN_NAME_/'${PLUGIN_PASCAL_UPPER}_'/g' {} +
+find ./${PLUGIN_KEBAB} -type f ! -path '*/\.*' -exec sed -i '' -e 's/_plugin_name/'_${PLUGIN_PASCAL_LOWER}'/g' {} +
 
 # Replace snake case instances in files
-find ./plugin-name -type f ! -path '*/\.*' -exec sed -i '' -e 's/plugin-name/'${PLUGIN_KEBAB}'/g' {} +
+find ./${PLUGIN_KEBAB} -type f ! -path '*/\.*' -exec sed -i '' -e 's/plugin-name/'${PLUGIN_KEBAB}'/g' {} +
 
 # Recursively rename files first
 #find . -type f -name '*plugin-name*' | while read FILE ; do
-find ./plugin-name -type f | while read FILE ; do
+find ./${PLUGIN_KEBAB} -type f | while read FILE ; do
     newfile="$(echo ${FILE} | sed -e 's/plugin-name/'${PLUGIN_KEBAB}'/g')" ;
     echo $FILE " --> " $newfile
     mkdir -p `dirname ${newfile}`
     mv "${FILE}" "${newfile}" ;
 done 
 
-# Remove original files that remain
-rm -r plugin-name
+# Remove original files that remain and restore plugin-name folder
+#rm -r plugin-name
+#mv backup plugin-name
