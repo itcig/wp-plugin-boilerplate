@@ -21,6 +21,9 @@ if [ -z ${PLUGIN_NAME+x} ] ; then
   exit 1
 fi
 
+clear >$(tty)
+echo "Generating files..."
+
 cp -r plugin-name ${PLUGIN_KEBAB}
 
 # Fix non-ASCII characters and treat them as literals for sed commands below
@@ -39,11 +42,11 @@ find ./${PLUGIN_KEBAB} -type f ! -path '*/\.*' -exec sed -i '' -e 's/plugin-name
 #find . -type f -name '*plugin-name*' | while read FILE ; do
 find ./${PLUGIN_KEBAB} -type f | while read FILE ; do
     newfile="$(echo ${FILE} | sed -e 's/plugin-name/'${PLUGIN_KEBAB}'/g')" ;
-    echo $FILE " --> " $newfile
+#    echo $FILE " --> " $newfile
     mkdir -p `dirname ${newfile}`
     mv "${FILE}" "${newfile}" ;
 done 
 
-# Remove original files that remain and restore plugin-name folder
-#rm -r plugin-name
-#mv backup plugin-name
+sleep 1 #just to ensure other message is seen
+clear >$(tty)
+echo "All done, copy the folder '${PLUGIN_KEBAB}' to your Wordpress site. Happy developing!\n\n\n"
